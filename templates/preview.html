@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Settings - Smart Study Planner</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#f7f5ff;color:#29263b}
+.sidebar{position:fixed;left:0;top:0;width:235px;height:100vh;background:linear-gradient(180deg,#6d4aff,#8d5cf6);color:#fff;padding:25px 15px}
+.logo{text-align:center;font-size:21px;font-weight:700;margin-bottom:35px}
+.nav a{display:block;color:#fff;text-decoration:none;padding:13px 15px;border-radius:12px;margin:7px 0}
+.nav a:hover,.nav .active{background:rgba(255,255,255,.2)}
+.main{margin-left:235px;padding:35px;min-height:100vh}
+h1{font-size:30px;color:#35257b}.sub{color:#777;margin-top:7px;margin-bottom:25px}
+.card{background:#fff;border-radius:18px;padding:24px;margin-bottom:20px;box-shadow:0 5px 20px rgba(80,55,150,.08)}
+h2{font-size:19px;color:#35257b;margin-bottom:18px}
+.setting{display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid #eee}
+.setting:last-child{border-bottom:0}
+.setting b{display:block;margin-bottom:5px}.setting span{font-size:13px;color:#777}
+.switch{width:48px;height:26px;background:#6d4aff;border-radius:20px;position:relative;cursor:pointer}
+.switch:after{content:'';position:absolute;width:20px;height:20px;background:#fff;border-radius:50%;right:3px;top:3px;transition:.2s}
+.switch.off{background:#ccc}.switch.off:after{right:25px}
+select{padding:10px 35px 10px 12px;border:1px solid #ddd7ee;border-radius:10px;background:#faf9ff}
+.btn{border:0;background:#6d4aff;color:#fff;padding:12px 20px;border-radius:11px;cursor:pointer;font-weight:600}
+.danger{background:#fff4f4;border:1px solid #ffd8d8}.danger h2{color:#c0392b}
+</style>
+</head>
+<body>
+<aside class="sidebar">
+<div class="logo">📚 Smart Study Planner</div>
+<nav class="nav">
+<a href="/dashboard">🏠 Dashboard</a>
+<a href="/study_plans">📚 Study Plans</a>
+<a href="/performance_prediction">🔮 Prediction</a>
+<a href="/profile">👤 Profile</a>
+<a href="/settings" class="active">⚙️ Settings</a>
+</nav>
+</aside>
+
+<main class="main">
+<h1>⚙️ Settings</h1>
+<p class="sub">Customize your Smart Study Planner experience.</p>
+
+<div class="card">
+<h2>🔔 Notifications</h2>
+<div class="setting">
+<div><b>Study Reminders</b><span>Get reminders for your daily study goals.</span></div>
+<div class="switch" onclick="toggle(this)"></div>
+</div>
+<div class="setting">
+<div><b>Daily Progress</b><span>Receive a summary of your study progress.</span></div>
+<div class="switch" onclick="toggle(this)"></div>
+</div>
+</div>
+
+<div class="card">
+<h2>🎨 Preferences</h2>
+<div class="setting">
+<div><b>Theme</b><span>Choose your preferred display theme.</span></div>
+<select><option>Light</option><option>Dark</option></select>
+</div>
+<div class="setting">
+<div><b>Language</b><span>Select the application language.</span></div>
+<select><option>English</option><option>Hindi</option></select>
+</div>
+</div>
+
+<div class="card">
+<h2>⏰ Study Preferences</h2>
+<div class="setting">
+<div><b>Daily Study Goal</b><span>Set your target study hours.</span></div>
+<select><option>1 Hour</option><option>2 Hours</option><option>3 Hours</option><option>4 Hours</option><option>5 Hours</option></select>
+</div>
+</div>
+
+<div class="card danger">
+<h2>🔐 Account</h2>
+<p style="color:#777;font-size:14px;margin-bottom:15px">Manage your account security and password.</p>
+<button class="btn" onclick="alert('Connect this button to your existing change-password route.')">Change Password</button>
+</div>
+</main>
+
+<script>
+function toggle(el){el.classList.toggle('off')}
+</script>
+</body>
+</html>

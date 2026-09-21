@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Login - Smart Study Planner</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f7f5ff;display:flex;min-height:100vh;align-items:center;justify-content:center}
+.card{width:390px;background:#fff;padding:32px;border-radius:22px;box-shadow:0 10px 35px rgba(70,45,150,.12)}
+.logo{text-align:center;font-size:42px}.title{text-align:center;color:#35257b;margin:8px 0}.sub{text-align:center;color:#777;margin-bottom:25px}
+label{display:block;color:#555;font-size:13px;margin:13px 0 7px}input{width:100%;padding:13px;border:1px solid #ddd7ee;border-radius:11px;background:#faf9ff}
+button{width:100%;margin-top:20px;padding:13px;border:0;border-radius:11px;background:#6d4aff;color:#fff;font-weight:700;cursor:pointer}
+.error{background:#fff0f0;color:#c0392b;padding:10px;border-radius:9px;font-size:13px}
+.back{text-align:center;margin-top:18px;font-size:13px}.back a{color:#6044d4;text-decoration:none}
+</style>
+</head>
+<body>
+<div class="card">
+<div class="logo">🔐</div>
+<h1 class="title">Admin Login</h1>
+<p class="sub">Smart Study Planner Administration</p>
+{% if error %}<div class="error">{{ error }}</div>{% endif %}
+<form method="POST">
+<label>Admin Username</label>
+<input name="username" required placeholder="Enter admin username">
+<label>Password</label>
+<input type="password" name="password" required placeholder="Enter admin password">
+<button type="submit">Login to Admin Panel</button>
+</form>
+<div class="back"><a href="/login">← Back to Student Login</a></div>
+</div>
+</body>
+</html>

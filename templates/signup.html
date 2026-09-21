@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign Up | Smart Study Planner</title>
+<style>
+*{box-sizing:border-box} body{margin:0;min-height:100vh;display:flex;justify-content:center;align-items:center;font-family:Arial,sans-serif;background:linear-gradient(135deg,#667eea,#764ba2,#ff758c);overflow:hidden}.card{width:410px;padding:38px;background:rgba(255,255,255,.96);border-radius:25px;box-shadow:0 25px 60px rgba(0,0,0,.25);text-align:center}.logo{font-size:52px}.h1{font-size:29px;color:#4f46e5;font-weight:700;margin:4px}.sub{color:#666;margin:8px 0 25px}.box{text-align:left;margin-bottom:16px}label{display:block;font-weight:bold;color:#333;margin-bottom:7px}input{width:100%;padding:13px;border:2px solid #e5e7eb;border-radius:12px;font-size:15px;outline:none}input:focus{border-color:#667eea}.btn{width:100%;border:0;padding:14px;border-radius:12px;background:#4f46e5;color:white;font-size:16px;font-weight:bold;cursor:pointer;margin-top:5px}.error{background:#ffe7e7;color:#b42318;padding:10px;border-radius:10px;margin-bottom:16px;font-size:14px}.login{margin-top:18px;color:#555}.login a{color:#4f46e5;font-weight:bold;text-decoration:none}
+</style>
+</head>
+<body>
+<div class="card">
+<div class="logo">📚✨</div>
+<div class="h1">Create Account</div>
+<div class="sub">Verify your email and start planning smarter.</div>
+{% if error %}<div class="error">{{ error }}</div>{% endif %}
+<form method="POST">
+<div class="box"><label>Username</label><input name="username" required value="{{ request.form.get('username','') }}"></div>
+<div class="box"><label>Email</label><input type="email" name="email" required value="{{ request.form.get('email','') }}" placeholder="you@example.com"></div>
+<div class="box"><label>Password</label><input type="password" name="password" required minlength="6" placeholder="Minimum 6 characters"></div>
+<button class="btn" type="submit">Send OTP 📩</button>
+</form>
+<div class="login">Already have an account? <a href="/login">Login</a></div>
+</div>
+</body>
+</html>

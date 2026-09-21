@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Login | Smart Study Planner</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        /* =========================
+           BODY
+        ========================= */
+
+        body {
+
+            min-height: 100vh;
+
+            font-family:
+                "Segoe UI",
+                Arial,
+                sans-serif;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            position: relative;
+
+            overflow: hidden;
+
+            background:
+                radial-gradient(
+                    circle at 10% 20%,
+                    rgba(129, 140, 248, 0.25),
+                    transparent 30%
+                ),
+
+                radial-gradient(
+                    circle at 90% 80%,
+                    rgba(192, 132, 252, 0.25),
+                    transparent 30%
+                ),
+
+                linear-gradient(
+                    135deg,
+                    #eef2ff,
+                    #f5f3ff,
+                    #e0e7ff
+                );
+        }
+
+
+        /* =========================
+           WATERMARK
+        ========================= */
+
+        .watermark {
+
+            position: fixed;
+
+            inset: 0;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            pointer-events: none;
+
+            z-index: 0;
+
+            user-select: none;
+
+            transform: rotate(-25deg);
+        }
+
+
+        .watermark span {
+
+            font-size: clamp(45px, 8vw, 110px);
+
+            font-weight: 900;
+
+            letter-spacing: 8px;
+
+            color: rgba(79, 70, 229, 0.055);
+
+            white-space: nowrap;
+
+        }
+
+
+        /* =========================
+           FLOATING DOODLES
+        ========================= */
+
+        .doodle {
+
+            position: absolute;
+
+            pointer-events: none;
+
+            user-select: none;
+
+            opacity: 0.16;
+
+            z-index: 1;
+
+            animation: float 5s ease-in-out infinite;
+        }
+
+
+        .d1 {
+
+            font-size: 80px;
+
+            top: 7%;
+
+            left: 7%;
+
+            transform: rotate(-15deg);
+
+        }
+
+
+        .d2 {
+
+            font-size: 70px;
+
+            top: 10%;
+
+            right: 9%;
+
+            transform: rotate(12deg);
+
+            animation-delay: 1s;
+        }
+
+
+        .d3 {
+
+            font-size: 100px;
+
+            bottom: 7%;
+
+            left: 8%;
+
+            transform: rotate(10deg);
+
+            animation-delay: 2s;
+        }
+
+
+        .d4 {
+
+            font-size: 75px;
+
+            bottom: 12%;
+
+            right: 8%;
+
+            transform: rotate(-15deg);
+
+            animation-delay: 1.5s;
+        }
+
+
+        .d5 {
+
+            font-size: 55px;
+
+            top: 47%;
+
+            left: 4%;
+
+            animation-delay: 0.5s;
+        }
+
+
+        .d6 {
+
+            font-size: 55px;
+
+            top: 50%;
+
+            right: 4%;
+
+            animation-delay: 2.5s;
+        }
+
+
+        @keyframes float {
+
+            0%,
+            100% {
+
+                transform: translateY(0) rotate(-5deg);
+
+            }
+
+            50% {
+
+                transform: translateY(-12px) rotate(5deg);
+
+            }
+
+        }
+
+
+        /* =========================
+           LOGIN CARD
+        ========================= */
+
+        .login-card {
+
+            width: 420px;
+
+            max-width: 92%;
+
+            padding: 42px 38px 34px;
+
+            position: relative;
+
+            z-index: 5;
+
+            text-align: center;
+
+            background:
+                rgba(255, 255, 255, 0.88);
+
+            backdrop-filter: blur(18px);
+
+            -webkit-backdrop-filter: blur(18px);
+
+            border: 1px solid rgba(255, 255, 255, 0.8);
+
+            border-radius: 28px;
+
+            box-shadow:
+                0 25px 60px rgba(49, 46, 129, 0.18),
+
+                0 5px 15px rgba(0, 0, 0, 0.06);
+
+            animation: cardAppear 0.7s ease;
+        }
+
+
+        @keyframes cardAppear {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(25px)
+                    scale(0.97);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+
+            }
+
+        }
+
+
+        /* =========================
+           TOP GLOW
+        ========================= */
+
+        .top-line {
+
+            position: absolute;
+
+            top: 0;
+
+            left: 12%;
+
+            width: 76%;
+
+            height: 5px;
+
+            border-radius:
+                0 0 20px 20px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #4f46e5,
+                    #8b5cf6,
+                    #ec4899
+                );
+        }
+
+
+        /* =========================
+           LOGO
+        ========================= */
+
+        .logo-circle {
+
+            width: 78px;
+
+            height: 78px;
+
+            margin: 0 auto 15px;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            border-radius: 24px;
+
+            font-size: 42px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #4f46e5,
+                    #7c3aed
+                );
+
+            box-shadow:
+                0 12px 25px
+                rgba(79, 70, 229, 0.28);
+
+            transform: rotate(-3deg);
+
+            animation:
+                logoFloat 3s ease-in-out infinite;
+        }
+
+
+        @keyframes logoFloat {
+
+            0%,
+            100% {
+
+                transform:
+                    translateY(0)
+                    rotate(-3deg);
+
+            }
+
+            50% {
+
+                transform:
+                    translateY(-5px)
+                    rotate(3deg);
+
+            }
+
+        }
+
+
+        /* =========================
+           HEADING
+        ========================= */
+
+        h1 {
+
+            font-size: 30px;
+
+            color: #312e81;
+
+            margin-bottom: 8px;
+
+            font-weight: 800;
+        }
+
+
+        .subtitle {
+
+            color: #6b7280;
+
+            font-size: 14px;
+
+            margin-bottom: 28px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =========================
+           INPUT BOX
+        ========================= */
+
+        .input-box {
+
+            text-align: left;
+
+            margin-bottom: 19px;
+        }
+
+
+        .input-box label {
+
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: #374151;
+
+            font-size: 14px;
+
+            font-weight: 700;
+        }
+
+
+        .input-wrapper {
+
+            position: relative;
+        }
+
+
+        .input-icon {
+
+            position: absolute;
+
+            left: 14px;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            font-size: 17px;
+
+            z-index: 2;
+        }
+
+
+        .input-box input {
+
+            width: 100%;
+
+            height: 49px;
+
+            padding:
+                0 15px 0 45px;
+
+            border:
+                1.5px solid #d8dbe8;
+
+            border-radius: 13px;
+
+            background:
+                rgba(255,255,255,0.8);
+
+            color: #1f2937;
+
+            font-size: 14px;
+
+            outline: none;
+
+            transition:
+                0.25s ease;
+        }
+
+
+        .input-box input::placeholder {
+
+            color: #9ca3af;
+        }
+
+
+        .input-box input:focus {
+
+            border-color: #6366f1;
+
+            background: white;
+
+            box-shadow:
+                0 0 0 4px
+                rgba(99, 102, 241, 0.11);
+
+            transform:
+                translateY(-1px);
+        }
+
+
+        /* =========================
+           FORGOT PASSWORD
+        ========================= */
+
+        .forgot-row {
+
+            text-align: right;
+
+            margin-top: -8px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .forgot-link {
+
+            color: #4f46e5;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            transition: 0.2s ease;
+        }
+
+
+        .forgot-link:hover {
+
+            color: #7c3aed;
+
+            text-decoration: underline;
+        }
+
+
+        /* =========================
+           LOGIN BUTTON
+        ========================= */
+
+        .login-button {
+
+            width: 100%;
+
+            height: 52px;
+
+            border: none;
+
+            border-radius: 14px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #4f46e5,
+                    #7c3aed,
+                    #8b5cf6
+                );
+
+            background-size: 200% 200%;
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: 800;
+
+            letter-spacing: 0.2px;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 10px 22px
+                rgba(79, 70, 229, 0.25);
+
+            transition:
+                0.3s ease;
+
+            animation:
+                gradientMove 4s ease infinite;
+        }
+
+
+        @keyframes gradientMove {
+
+            0% {
+
+                background-position: 0% 50%;
+
+            }
+
+            50% {
+
+                background-position: 100% 50%;
+
+            }
+
+            100% {
+
+                background-position: 0% 50%;
+
+            }
+
+        }
+
+
+        .login-button:hover {
+
+            transform:
+                translateY(-3px);
+
+            box-shadow:
+                0 14px 28px
+                rgba(79, 70, 229, 0.32);
+        }
+
+
+        .login-button:active {
+
+            transform:
+                translateY(0);
+        }
+
+
+        /* =========================
+           HOME LINK
+        ========================= */
+
+        .home-link {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 5px;
+
+            margin-top: 22px;
+
+            color: #4f46e5;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            transition: 0.2s ease;
+        }
+
+
+        .home-link:hover {
+
+            color: #7c3aed;
+
+            transform:
+                translateX(-3px);
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        .small-text {
+
+            margin-top: 24px;
+
+            padding-top: 18px;
+
+            border-top:
+                1px solid #e5e7eb;
+
+            color: #8a8f9c;
+
+            font-size: 12px;
+
+            line-height: 1.6;
+        }
+
+
+        .small-text strong {
+
+            color: #6366f1;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            body {
+
+                padding: 20px;
+
+            }
+
+
+            .login-card {
+
+                width: 100%;
+
+                max-width: 410px;
+
+                padding:
+                    36px 24px 28px;
+
+            }
+
+
+            .logo-circle {
+
+                width: 70px;
+
+                height: 70px;
+
+                font-size: 36px;
+
+            }
+
+
+            h1 {
+
+                font-size: 26px;
+
+            }
+
+
+            .doodle {
+
+                opacity: 0.09;
+
+                transform:
+                    scale(0.7);
+
+            }
+
+
+            .watermark span {
+
+                font-size: 45px;
+
+            }
+
+        }
+
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         WATERMARK
+    ========================== -->
+
+    <div class="watermark">
+
+        <span>
+            SMART STUDY PLANNER
+        </span>
+
+    </div>
+
+
+
+    <!-- =========================
+         BACKGROUND DOODLES
+    ========================== -->
+
+    <div class="doodle d1">📚</div>
+
+    <div class="doodle d2">✏️</div>
+
+    <div class="doodle d3">🎓</div>
+
+    <div class="doodle d4">🤖</div>
+
+    <div class="doodle d5">&lt;/&gt;</div>
+
+    <div class="doodle d6">AI</div>
+
+
+
+    <!-- =========================
+         LOGIN CARD
+    ========================== -->
+
+    <div class="login-card">
+
+
+        <div class="top-line"></div>
+
+
+        <!-- LOGO -->
+
+        <div class="logo-circle">
+
+            📚
+
+        </div>
+
+
+
+        <!-- TITLE -->
+
+        <h1>
+
+            Welcome Back! 👋
+
+        </h1>
+
+
+        <p class="subtitle">
+
+            Login to continue your
+            <strong>Smart Study Journey</strong> 🚀
+
+        </p>
+
+
+
+        <!-- LOGIN FORM -->
+
+        <form method="POST">
+
+
+            <!-- USERNAME -->
+
+            <div class="input-box">
+
+                <label>
+
+                    👤 Username
+
+                </label>
+
+
+                <div class="input-wrapper">
+
+                    <span class="input-icon">
+                        👤
+                    </span>
+
+
+                    <input
+                        type="text"
+                        name="username"
+                        placeholder="Enter your username"
+                        autocomplete="username"
+                        required>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- PASSWORD -->
+
+            <div class="input-box">
+
+                <label>
+
+                    🔒 Password
+
+                </label>
+
+
+                <div class="input-wrapper">
+
+                    <span class="input-icon">
+                        🔐
+                    </span>
+
+
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        autocomplete="current-password"
+                        required>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- FORGOT PASSWORD -->
+
+            <div class="forgot-row">
+
+                <a
+                    href="/forgot_password"
+                    class="forgot-link">
+
+                    🔑 Forgot Password?
+
+                </a>
+
+            </div>
+
+
+
+            <!-- LOGIN BUTTON -->
+
+            <button
+                type="submit"
+                class="login-button">
+
+                🔐 Login to Dashboard
+
+            </button>
+
+
+        </form>
+
+
+
+        <!-- HOME -->
+
+        <a
+            href="/"
+            class="home-link">
+
+            ← Back to Home
+
+        </a>
+
+
+
+        <!-- FOOTER -->
+
+        <div class="small-text">
+
+            📚 <strong>Study Smart</strong>
+            • Stay Organized
+            • Achieve More 🎯
+
+        </div>
+
+
+    </div>
+
+
+</body>
+
+</html>

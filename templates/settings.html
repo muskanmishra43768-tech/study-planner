@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Settings | Smart Study Planner</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,Helvetica,sans-serif}
+body{background:#f5f7fb;color:#1f2937}.layout{display:flex;min-height:100vh}
+.sidebar{width:245px;background:#fff;border-right:1px solid #e5e7eb;padding:25px 15px;position:fixed;top:0;bottom:0;left:0}
+.brand{text-align:center;margin-bottom:28px}.brand-icon{font-size:36px}.brand h2{color:#2563eb;font-size:21px}.brand p{color:#6b7280;font-size:12px;margin-top:4px}
+.nav-title{color:#9ca3af;font-size:11px;font-weight:bold;text-transform:uppercase;letter-spacing:1px;padding:0 12px;margin:20px 0 10px}
+.nav-item,.logout-btn{display:flex;align-items:center;gap:12px;width:100%;padding:12px 14px;margin:5px 0;border-radius:10px;text-decoration:none;color:#4b5563;font-size:14px}
+.nav-item:hover{background:#eff6ff;color:#2563eb}.nav-item.active{background:#2563eb;color:white}.logout-btn{margin-top:22px;color:#dc2626}.logout-btn:hover{background:#fef2f2}
+.main{margin-left:245px;width:calc(100% - 245px);padding:32px}.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px}
+.welcome h1{font-size:28px;color:#111827;margin-bottom:6px}.welcome p{color:#6b7280;font-size:14px}.user-badge{background:#fff;border:1px solid #e5e7eb;padding:10px 15px;border-radius:12px}
+.card{background:#fff;border:1px solid #e5e7eb;border-radius:18px;padding:25px;margin-bottom:20px;box-shadow:0 4px 15px rgba(0,0,0,.04)}
+.card h2{font-size:19px;color:#111827;margin-bottom:6px}.subtitle{font-size:13px;color:#6b7280;margin-bottom:20px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:17px 0;border-bottom:1px solid #f0f1f3}.row:last-child{border-bottom:0}
+.row h3{font-size:14px;color:#374151;margin-bottom:4px}.row p{font-size:12px;color:#6b7280}
+select{padding:9px 12px;border:1px solid #d1d5db;border-radius:9px;background:white;color:#374151}
+.toggle{width:45px;height:24px;border-radius:20px;background:#2563eb;position:relative;display:inline-block;cursor:pointer}.toggle input{display:none}.knob{position:absolute;width:18px;height:18px;background:#fff;border-radius:50%;top:3px;right:3px}
+.footer{text-align:center;color:#9ca3af;font-size:12px;padding:18px}
+@media(max-width:750px){.sidebar{width:205px}.main{margin-left:205px;width:calc(100% - 205px);padding:22px}}
+@media(max-width:600px){.sidebar{position:relative;width:100%;min-height:auto}.layout{display:block}.main{margin-left:0;width:100%;padding:18px}.topbar{flex-direction:column;align-items:flex-start;gap:12px}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar">
+<div class="brand"><div class="brand-icon">📚</div><h2>Smart Study Planner</h2><p>Study smarter, not harder</p></div>
+<div class="nav-title">Main Menu</div>
+<a href="{{ url_for('dashboard') }}" class="nav-item"><span>🏠</span>Dashboard</a>
+<a href="{{ url_for('study_plans_page') }}" class="nav-item"><span>📚</span>Add / Study Plans</a>
+<a href="{{ url_for('progress_page') }}" class="nav-item"><span>📈</span>My Progress</a>
+<a href="{{ url_for('performance_prediction_page') }}" class="nav-item"><span>🔮</span>Performance Prediction</a>
+<div class="nav-title">Account</div>
+<a href="{{ url_for('profile_page') }}" class="nav-item"><span>👤</span>Profile</a>
+<a href="{{ url_for('settings_page') }}" class="nav-item active"><span>⚙️</span>Settings</a>
+<a href="{{ url_for('about_page') }}" class="nav-item"><span>ℹ️</span>About Us</a>
+<a href="{{ url_for('contact_page') }}" class="nav-item"><span>📩</span>Contact Us</a>
+<a href="{{ url_for('logout') }}" class="logout-btn"><span>🚪</span>Logout</a>
+</aside>
+<main class="main">
+<div class="topbar"><div class="welcome"><h1>⚙️ Settings</h1><p>Manage your study planner preferences.</p></div><div class="user-badge">👋 {{ username if username else "Student" }}</div></div>
+
+<section class="card">
+<h2>🎨 Appearance</h2><p class="subtitle">Choose how your planner looks.</p>
+<div class="row"><div><h3>Theme</h3><p>Select your preferred appearance.</p></div><select id="theme"><option>Light</option><option>Dark</option></select></div>
+</section>
+
+<section class="card">
+<h2>🔔 Notifications</h2><p class="subtitle">Control study reminders and notifications.</p>
+<div class="row"><div><h3>Study Reminders</h3><p>Receive reminders for your planned study sessions.</p></div><label class="toggle"><input type="checkbox" checked><span class="knob"></span></label></div>
+<div class="row"><div><h3>Progress Updates</h3><p>Show progress-related reminders.</p></div><label class="toggle"><input type="checkbox" checked><span class="knob"></span></label></div>
+</section>
+
+<section class="card">
+<h2>📚 Study Preferences</h2><p class="subtitle">Set your general study preferences.</p>
+<div class="row"><div><h3>Default Study Session</h3><p>Preferred length of a study session.</p></div><select><option>30 minutes</option><option>45 minutes</option><option selected>60 minutes</option><option>90 minutes</option><option>120 minutes</option></select></div>
+<div class="row"><div><h3>Weekly Goal</h3><p>Choose a general weekly study target.</p></div><select><option>5 hours</option><option>10 hours</option><option selected>15 hours</option><option>20 hours</option><option>25 hours</option></select></div>
+</section>
+
+<section class="card">
+<h2>🔐 Account</h2><p class="subtitle">Your account is protected by your login credentials.</p>
+<div class="row"><div><h3>Logged in as</h3><p>{{ username if username else "Student" }}</p></div><a href="{{ url_for('logout') }}" style="text-decoration:none;background:#fef2f2;color:#dc2626;padding:9px 13px;border-radius:9px;font-size:12px;font-weight:bold">🚪 Logout</a></div>
+</section>
+
+<div class="footer">© 2026 Smart Study Planner • Your study, your way 🚀</div>
+</main>
+</div>
+<script>
+const theme=document.getElementById("theme");
+theme.addEventListener("change",()=>{if(theme.value==="Dark"){document.body.style.background="#111827";document.body.style.color="#f9fafb"}else{document.body.style.background="#f5f7fb";document.body.style.color="#1f2937"}});
+</script>
+</body>
+</html>

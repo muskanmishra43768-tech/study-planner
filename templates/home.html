@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Study Planner</title>
+
+
+    <style>
+
+        /* =========================================
+           BASIC SETTINGS
+        ========================================= */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6ff;
+            color: #1f2937;
+            overflow-x: hidden;
+        }
+
+
+        /* =========================================
+           FUNKY BACKGROUND DOODLES
+        ========================================= */
+
+        .background-doodles {
+
+            position: fixed;
+
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 100vh;
+
+            overflow: hidden;
+
+            pointer-events: none;
+
+            z-index: 0;
+        }
+
+
+        .doodle {
+
+            position: absolute;
+
+            color: #3730a3;
+
+            opacity: 0.14;
+
+            font-weight: bold;
+
+            user-select: none;
+
+            text-shadow:
+                1px 1px 2px rgba(79, 70, 229, 0.15);
+        }
+
+
+        /* Python */
+
+        .python1 {
+            font-size: 80px;
+            top: 12%;
+            left: 3%;
+            transform: rotate(-18deg);
+        }
+
+        .python2 {
+            font-size: 60px;
+            top: 42%;
+            right: 4%;
+            transform: rotate(20deg);
+        }
+
+        .python3 {
+            font-size: 70px;
+            top: 76%;
+            left: 7%;
+            transform: rotate(-12deg);
+        }
+
+
+        /* Books */
+
+        .book1 {
+            font-size: 70px;
+            top: 18%;
+            right: 8%;
+            transform: rotate(14deg);
+        }
+
+        .book2 {
+            font-size: 55px;
+            top: 57%;
+            left: 5%;
+            transform: rotate(-15deg);
+        }
+
+        .book3 {
+            font-size: 65px;
+            top: 88%;
+            right: 12%;
+            transform: rotate(10deg);
+        }
+
+
+        /* C */
+
+        .c1 {
+            font-size: 120px;
+            top: 27%;
+            left: 18%;
+            transform: rotate(-10deg);
+        }
+
+        .c2 {
+            font-size: 90px;
+            top: 68%;
+            right: 20%;
+            transform: rotate(12deg);
+        }
+
+
+        /* AI */
+
+        .ai1 {
+            font-size: 65px;
+            top: 10%;
+            left: 43%;
+            transform: rotate(8deg);
+        }
+
+        .ai2 {
+            font-size: 75px;
+            top: 51%;
+            right: 30%;
+            transform: rotate(-12deg);
+        }
+
+        .ai3 {
+            font-size: 60px;
+            top: 84%;
+            left: 40%;
+            transform: rotate(15deg);
+        }
+
+
+        /* Coding */
+
+        .code1 {
+            font-size: 65px;
+            top: 34%;
+            right: 18%;
+            transform: rotate(8deg);
+        }
+
+        .code2 {
+            font-size: 60px;
+            top: 62%;
+            left: 27%;
+            transform: rotate(-15deg);
+        }
+
+
+        /* Laptop */
+
+        .laptop1 {
+            font-size: 65px;
+            top: 5%;
+            right: 35%;
+            transform: rotate(-8deg);
+        }
+
+        .laptop2 {
+            font-size: 60px;
+            top: 81%;
+            right: 40%;
+            transform: rotate(10deg);
+        }
+
+
+        /* Brain */
+
+        .brain1 {
+            font-size: 65px;
+            top: 24%;
+            right: 42%;
+            transform: rotate(12deg);
+        }
+
+        .brain2 {
+            font-size: 60px;
+            top: 73%;
+            left: 43%;
+            transform: rotate(-10deg);
+        }
+
+
+        /* Programming symbols */
+
+        .symbol1 {
+            font-size: 70px;
+            top: 47%;
+            left: 19%;
+            transform: rotate(-20deg);
+        }
+
+        .symbol2 {
+            font-size: 70px;
+            top: 94%;
+            left: 51%;
+            transform: rotate(15deg);
+        }
+
+        .symbol3 {
+            font-size: 60px;
+            top: 36%;
+            left: 48%;
+            transform: rotate(12deg);
+        }
+
+
+        /* =========================================
+           NAVBAR
+        ========================================= */
+
+        .navbar {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #4f46e5,
+                    #6366f1
+                );
+
+            color: white;
+
+            padding: 20px 7%;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            position: relative;
+
+            z-index: 10;
+
+            box-shadow:
+                0 4px 15px rgba(0,0,0,0.15);
+        }
+
+
+        .navbar h2 {
+
+            margin: 0;
+
+            font-size: 23px;
+        }
+
+
+        .navbar-links {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 20px;
+        }
+
+
+        .navbar a {
+
+            color: white;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+
+        .navbar a:hover {
+
+            color: #ddd6fe;
+
+            transform: translateY(-2px);
+        }
+
+
+        /* Login Button */
+
+        .login-btn {
+
+            background: white;
+
+            color: #4f46e5 !important;
+
+            padding: 10px 18px;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 3px 10px rgba(0,0,0,0.15);
+        }
+
+
+        .login-btn:hover {
+
+            background: #eef2ff;
+
+            transform: translateY(-2px);
+        }
+        .signup-btn {
+
+    background: #fef3c7;
+
+    color: #4f46e5 !important;
+
+    padding: 10px 18px;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 3px 10px rgba(0,0,0,0.15);
+
+    transition: 0.3s;
+}
+
+
+.signup-btn:hover {
+
+    background: #fde68a;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 6px 15px rgba(0,0,0,0.20);
+}
+
+
+        /* =========================================
+           HERO SECTION
+        ========================================= */
+
+        .hero {
+
+            min-height: 58vh;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            text-align: center;
+
+            padding: 60px 20px;
+
+            position: relative;
+
+            z-index: 2;
+        }
+
+
+        .hero-content {
+
+            max-width: 800px;
+
+            background:
+                rgba(255,255,255,0.82);
+
+            padding: 45px;
+
+            border-radius: 25px;
+
+            box-shadow:
+                0 10px 35px rgba(79,70,229,0.12);
+
+            backdrop-filter: blur(3px);
+        }
+
+
+        .hero h1 {
+
+            font-size: 48px;
+
+            margin-bottom: 18px;
+
+            color: #3730a3;
+        }
+
+
+        .hero p {
+
+            font-size: 19px;
+
+            line-height: 1.8;
+
+            color: #555;
+
+            margin: 0;
+        }
+
+
+        .hero-badges {
+
+            margin-top: 25px;
+
+            display: flex;
+
+            justify-content: center;
+
+            flex-wrap: wrap;
+
+            gap: 10px;
+        }
+
+
+        .badge {
+
+            background: #eef2ff;
+
+            color: #3730a3;
+
+            padding: 10px 15px;
+
+            border-radius: 20px;
+
+            font-weight: bold;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================================
+           IMAGE SECTION
+        ========================================= */
+
+        .image-section {
+
+            text-align: center;
+
+            padding: 35px 5% 65px;
+
+            position: relative;
+
+            z-index: 2;
+        }
+
+
+        .image-section h2 {
+
+            color: #3730a3;
+
+            font-size: 30px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .image-section > p {
+
+            color: #666;
+
+            font-size: 16px;
+        }
+
+
+        .image-boxes {
+
+            display: flex;
+
+            justify-content: center;
+
+            flex-wrap: wrap;
+
+            gap: 25px;
+
+            margin-top: 30px;
+        }
+
+
+        .image-card {
+
+            width: 230px;
+
+            background:
+                rgba(255,255,255,0.96);
+
+            padding: 12px;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 6px 20px rgba(0,0,0,0.10);
+
+            transition:
+                transform 0.3s,
+                box-shadow 0.3s;
+        }
+
+
+        .image-card:hover {
+
+            transform:
+                translateY(-8px)
+                rotate(1deg);
+
+            box-shadow:
+                0 12px 28px rgba(79,70,229,0.20);
+        }
+
+
+        .image-card img {
+
+            width: 100%;
+
+            height: 155px;
+
+            object-fit: cover;
+
+            border-radius: 13px;
+        }
+
+
+        .image-card h3 {
+
+            color: #4f46e5;
+
+            font-size: 17px;
+
+            margin-bottom: 8px;
+        }
+
+
+        /* =========================================
+           FEATURE CARDS
+        ========================================= */
+
+        .features {
+
+            display: flex;
+
+            justify-content: center;
+
+            flex-wrap: wrap;
+
+            gap: 25px;
+
+            padding: 30px 8% 65px;
+
+            position: relative;
+
+            z-index: 2;
+        }
+
+
+        .feature {
+
+            width: 270px;
+
+            background:
+                rgba(255,255,255,0.95);
+
+            padding: 30px;
+
+            border-radius: 18px;
+
+            text-align: center;
+
+            box-shadow:
+                0 6px 20px rgba(0,0,0,0.08);
+
+            transition:
+                transform 0.3s,
+                box-shadow 0.3s;
+        }
+
+
+        .feature:hover {
+
+            transform:
+                translateY(-7px);
+
+            box-shadow:
+                0 12px 28px rgba(79,70,229,0.18);
+        }
+
+
+        .feature-icon {
+
+            font-size: 42px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .feature h3 {
+
+            color: #4f46e5;
+
+            font-size: 20px;
+        }
+
+
+        .feature p {
+
+            color: #555;
+
+            line-height: 1.6;
+        }
+
+
+        /* =========================================
+           ABOUT / CONTACT
+        ========================================= */
+
+        .section {
+
+            max-width: 900px;
+
+            margin: 30px auto;
+
+            padding: 35px;
+
+            background:
+                rgba(255,255,255,0.96);
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 6px 20px rgba(0,0,0,0.08);
+
+            position: relative;
+
+            z-index: 2;
+        }
+
+
+        .section h2 {
+
+            color: #3730a3;
+
+            font-size: 27px;
+        }
+
+
+        .section p {
+
+            line-height: 1.8;
+
+            color: #555;
+
+            font-size: 16px;
+        }
+
+
+        .contact-box {
+
+            background: #eef2ff;
+
+            padding: 18px;
+
+            border-radius: 12px;
+
+            margin-top: 15px;
+        }
+
+
+        /* =========================================
+           FOOTER
+        ========================================= */
+
+        footer {
+
+            text-align: center;
+
+            padding: 30px;
+
+            margin-top: 50px;
+
+            color: #666;
+
+            background: rgba(255,255,255,0.7);
+
+            position: relative;
+
+            z-index: 2;
+        }
+
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media (max-width: 750px) {
+
+            .navbar {
+
+                flex-direction: column;
+
+                gap: 15px;
+
+                text-align: center;
+            }
+
+
+            .navbar-links {
+
+                flex-wrap: wrap;
+
+                justify-content: center;
+
+                gap: 12px;
+            }
+
+
+            .navbar h2 {
+
+                font-size: 20px;
+            }
+
+
+            .hero {
+
+                min-height: 50vh;
+
+                padding: 35px 15px;
+            }
+
+
+            .hero-content {
+
+                padding: 30px 20px;
+            }
+
+
+            .hero h1 {
+
+                font-size: 34px;
+            }
+
+
+            .hero p {
+
+                font-size: 16px;
+            }
+
+
+            .doodle {
+
+                opacity: 0.12;
+
+                transform: scale(0.7);
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================
+         BACKGROUND FUNKY DOODLES
+    ========================================== -->
+
+    <div class="background-doodles">
+
+        <div class="doodle python1">🐍</div>
+
+        <div class="doodle python2">🐍</div>
+
+        <div class="doodle python3">🐍</div>
+
+
+        <div class="doodle book1">📚</div>
+
+        <div class="doodle book2">📖</div>
+
+        <div class="doodle book3">📚</div>
+
+
+        <div class="doodle c1">C</div>
+
+        <div class="doodle c2">C</div>
+
+
+        <div class="doodle ai1">AI</div>
+
+        <div class="doodle ai2">🤖</div>
+
+        <div class="doodle ai3">AI</div>
+
+
+        <div class="doodle code1">&lt;/&gt;</div>
+
+        <div class="doodle code2">{ }</div>
+
+
+        <div class="doodle laptop1">💻</div>
+
+        <div class="doodle laptop2">💻</div>
+
+
+        <div class="doodle brain1">🧠</div>
+
+        <div class="doodle brain2">🧠</div>
+
+
+        <div class="doodle symbol1">[ ]</div>
+
+        <div class="doodle symbol2">&lt;/&gt;</div>
+
+        <div class="doodle symbol3">#</div>
+
+    </div>
+
+
+
+    <!-- =========================================
+         NAVBAR
+    ========================================== -->
+
+    <div class="navbar">
+
+        <h2>
+            📚 Smart Study Planner
+        </h2>
+
+
+        <div class="navbar-links">
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="#about">
+                About Us
+            </a>
+
+            <a href="#contact">
+                Contact Us
+            </a>
+
+            <a href="/login" class="login-btn">
+                🔐 Login
+            </a>
+            <a href="/signup" class="signup-btn">
+    🚀 Sign Up
+</a>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================
+         HERO
+    ========================================== -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <h1>
+                Plan Smart. Study Better. ✨
+            </h1>
+
+
+            <p>
+                Organize your study schedule, track your progress,
+                manage your subjects and improve your learning
+                with Smart Study Planner.
+            </p>
+
+
+            <div class="hero-badges">
+
+                <span class="badge">
+                    📚 Study Planning
+                </span>
+
+                <span class="badge">
+                    📊 Progress Tracking
+                </span>
+
+                <span class="badge">
+                    🤖 AI Technology
+                </span>
+
+                <span class="badge">
+                    💻 Smart Learning
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================
+         STUDY & TECHNOLOGY
+    ========================================== -->
+
+    <section class="image-section">
+
+        <h2>
+            📚 Learn • Code • Grow with AI 🤖
+        </h2>
+
+        <p>
+            Explore learning, programming and technology.
+        </p>
+
+
+        <div class="image-boxes">
+
+
+            <!-- BOOK -->
+
+            <div class="image-card">
+
+                <img
+                    src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=500"
+                    alt="Books and library">
+
+                <h3>
+                    📚 Books & Learning
+                </h3>
+
+            </div>
+
+
+            <!-- STUDENTS -->
+
+            <div class="image-card">
+
+                <img
+                    src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=500"
+                    alt="Students learning">
+
+                <h3>
+                    👩‍🎓 Smart Learning
+                </h3>
+
+            </div>
+
+
+            <!-- CODING -->
+
+            <div class="image-card">
+
+                <img
+                    src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=500"
+                    alt="Programming code">
+
+                <h3>
+                    💻 Python & C Coding
+                </h3>
+
+            </div>
+
+
+            <!-- AI -->
+
+            <div class="image-card">
+
+                <img
+                    src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=500"
+                    alt="Artificial Intelligence">
+
+                <h3>
+                    🤖 Artificial Intelligence
+                </h3>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================
+         FEATURES
+    ========================================== -->
+
+    <section class="features">
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                📝
+            </div>
+
+            <h3>
+                Study Planning
+            </h3>
+
+            <p>
+                Create and manage your daily study plans
+                in an organized way.
+            </p>
+
+        </div>
+
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                📈
+            </div>
+
+            <h3>
+                Track Progress
+            </h3>
+
+            <p>
+                Monitor completed study hours and
+                subject-wise progress.
+            </p>
+
+        </div>
+
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                🎯
+            </div>
+
+            <h3>
+                Performance
+            </h3>
+
+            <p>
+                Track your learning performance and
+                stay focused on your goals.
+            </p>
+
+        </div>
+
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                🤖
+            </div>
+
+            <h3>
+                AI Based Prediction
+            </h3>
+
+            <p>
+                Use performance data to understand
+                your expected academic performance.
+            </p>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =========================================
+         ABOUT US
+    ========================================== -->
+
+    <section class="section" id="about">
+
+        <h2>
+            ℹ️ About Us
+        </h2>
+
+
+        <p>
+            Smart Study Planner is a student-friendly
+            web application designed to help students
+            organize their study schedules, manage
+            subjects, track study progress and monitor
+            their learning performance.
+        </p>
+
+
+        <p>
+            The project combines study planning,
+            progress tracking and technology to make
+            learning more organized and productive.
+        </p>
+
+
+    </section>
+
+
+
+    <!-- =========================================
+         CONTACT US
+    ========================================== -->
+
+    <section class="section" id="contact">
+
+        <h2>
+            📩 Contact Us
+        </h2>
+
+
+        <p>
+            Have any questions or suggestions about
+            Smart Study Planner? Feel free to contact us.
+        </p>
+
+
+        <div class="contact-box">
+
+            <p>
+                📧
+                <strong>Email:</strong>
+                muskan73000@gmail.com
+            </p>
+
+
+            <p>
+                📚
+                <strong>Project:</strong>
+                Smart Study Planner
+            </p>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =========================================
+         FOOTER
+    ========================================== -->
+
+    <footer>
+
+        📚 Smart Study Planner
+
+        <br><br>
+
+        Plan Smart • Study Better • Perform Better 💜
+
+    </footer>
+
+
+</body>
+
+</html>

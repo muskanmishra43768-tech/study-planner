@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Study Plan | Smart Study Planner</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #eef2ff, #f5f3ff, #fdf2f8);
+            color: #30305c;
+            padding: 40px 20px;
+        }
+
+        .wrapper {
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.97);
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: 0 18px 45px rgba(79, 70, 229, 0.15);
+            border: 1px solid rgba(99, 102, 241, 0.12);
+        }
+
+        h1 {
+            margin: 0 0 8px;
+            color: #4338ca;
+            font-size: 30px;
+        }
+
+        .subtitle {
+            margin: 0 0 26px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .info {
+            background: #eef2ff;
+            border-radius: 14px;
+            padding: 14px 16px;
+            margin-bottom: 24px;
+            color: #3730a3;
+            line-height: 1.5;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-weight: 700;
+            color: #3f3f68;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px 14px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 15px;
+            outline: none;
+            background: #fff;
+        }
+
+        input:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
+        }
+
+        .hint {
+            color: #777;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        .status-box {
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 13px 14px;
+            color: #475569;
+            font-size: 14px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 26px;
+            flex-wrap: wrap;
+        }
+
+        button,
+        a {
+            border: none;
+            text-decoration: none;
+            cursor: pointer;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .save {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+        }
+
+        .cancel {
+            background: #f1f5f9;
+            color: #475569;
+        }
+
+        @media (max-width: 650px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .field.full {
+                grid-column: auto;
+            }
+
+            .card {
+                padding: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+    <div class="card">
+
+        <h1>✏️ Edit Study Plan</h1>
+
+        <p class="subtitle">
+            Update your subject, date, planned hours and actual studied hours.
+        </p>
+
+        <div class="info">
+            💡 <strong>Tip:</strong>
+            Enter the number of hours you have actually studied so your
+            Dashboard, Progress and Performance Prediction stay updated.
+        </div>
+
+        <form action="{{ url_for('edit_plan', plan_id=plan['id']) }}" method="POST">
+
+            <div class="grid">
+
+                <div class="field full">
+                    <label>📖 Subject</label>
+                    <input
+                        type="text"
+                        name="subject"
+                        value="{{ plan['subject'] }}"
+                        required
+                    >
+                </div>
+
+                <div class="field">
+                    <label>📅 Study Date</label>
+                    <input
+                        type="date"
+                        name="date"
+                        value="{{ plan['date'] }}"
+                        required
+                    >
+                </div>
+
+                <div class="field">
+                    <label>⏰ Planned Hours</label>
+                    <input
+                        type="number"
+                        name="hours"
+                        min="0"
+                        step="0.5"
+                        value="{{ plan['hours'] }}"
+                        required
+                    >
+                </div>
+
+                <div class="field full">
+                    <label>⏱️ Studied Hours</label>
+                    <input
+                        type="number"
+                        name="studied_hours"
+                        min="0"
+                        step="0.5"
+                        value="{{ plan['studied_hours'] }}"
+                        required
+                    >
+                    <div class="hint">
+                        Studied hours cannot be greater than planned hours.
+                    </div>
+                </div>
+
+                <div class="field full">
+                    <label>📊 Current Status</label>
+                    <div class="status-box">
+                        {% if plan['status']|lower == 'completed' %}
+                            ✅ Completed
+                        {% else %}
+                            ⏳ Pending
+                        {% endif %}
+                        — status will update automatically after saving.
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="actions">
+
+                <button type="submit" class="save">
+                    💾 Save Changes
+                </button>
+
+                <a href="{{ url_for('dashboard') }}" class="cancel">
+                    ↩️ Cancel
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>

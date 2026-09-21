@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us | Smart Study Planner</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,Helvetica,sans-serif}
+body{background:#f5f7fb;color:#1f2937;min-height:100vh}
+.layout{display:flex;min-height:100vh}
+
+.sidebar{
+    width:245px;background:#fff;border-right:1px solid #e5e7eb;
+    padding:25px 15px;position:fixed;top:0;bottom:0;left:0;
+}
+.brand{text-align:center;margin-bottom:28px}
+.brand-icon{font-size:36px}
+.brand h2{color:#2563eb;font-size:21px}
+.brand p{color:#6b7280;font-size:12px;margin-top:4px}
+
+.nav-title{
+    color:#9ca3af;font-size:11px;font-weight:bold;
+    text-transform:uppercase;letter-spacing:1px;
+    padding:0 12px;margin:20px 0 10px
+}
+.nav-item,.logout-btn{
+    display:flex;gap:12px;align-items:center;width:100%;
+    padding:12px 14px;margin:5px 0;border-radius:10px;
+    text-decoration:none;color:#4b5563;font-size:14px
+}
+.nav-item:hover{background:#eff6ff;color:#2563eb}
+.nav-item.active{background:#2563eb;color:#fff}
+.logout-btn{margin-top:22px;color:#dc2626}
+.logout-btn:hover{background:#fef2f2}
+
+.main{
+    margin-left:245px;width:calc(100% - 245px);padding:32px
+}
+.topbar{
+    display:flex;justify-content:space-between;align-items:center;
+    margin-bottom:25px;gap:20px
+}
+.welcome h1{font-size:28px;color:#111827;margin-bottom:6px}
+.welcome p{color:#6b7280;font-size:14px}
+.user-badge{
+    background:#fff;border:1px solid #e5e7eb;
+    padding:10px 15px;border-radius:12px
+}
+
+.grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:20px
+}
+.card{
+    background:#fff;border:1px solid #e5e7eb;border-radius:18px;
+    padding:27px;box-shadow:0 4px 15px rgba(0,0,0,.04)
+}
+.card h2{font-size:20px;color:#111827;margin-bottom:12px}
+.card p{color:#6b7280;font-size:14px;line-height:1.7}
+
+.contact-item{
+    display:flex;align-items:center;gap:15px;
+    padding:18px 0;border-bottom:1px solid #f0f1f3
+}
+.contact-item:last-child{border-bottom:0}
+.contact-icon{
+    width:45px;height:45px;border-radius:12px;
+    background:#eff6ff;display:flex;align-items:center;
+    justify-content:center;font-size:22px;flex-shrink:0
+}
+.contact-item h3{font-size:14px;color:#374151;margin-bottom:5px}
+.contact-item a{
+    color:#2563eb;text-decoration:none;font-size:14px;
+    font-weight:500
+}
+.contact-item a:hover{text-decoration:underline}
+
+.social-box{
+    margin-top:22px;background:#eff6ff;border-radius:13px;
+    padding:18px;color:#1d4ed8
+}
+.social-box h3{font-size:15px;margin-bottom:13px}
+.instagram{
+    display:inline-flex;align-items:center;gap:9px;
+    text-decoration:none;background:#fff;color:#374151;
+    border:1px solid #e5e7eb;padding:10px 14px;
+    border-radius:10px;font-size:13px;font-weight:bold
+}
+.instagram:hover{color:#2563eb}
+
+.footer{
+    text-align:center;color:#9ca3af;font-size:12px;padding:25px 0 5px
+}
+
+@media(max-width:800px){
+    .grid{grid-template-columns:1fr}
+}
+@media(max-width:750px){
+    .sidebar{width:205px}
+    .main{margin-left:205px;width:calc(100% - 205px);padding:22px}
+}
+@media(max-width:600px){
+    .sidebar{position:relative;width:100%;min-height:auto}
+    .layout{display:block}
+    .main{margin-left:0;width:100%;padding:18px}
+    .topbar{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+<aside class="sidebar">
+
+    <div class="brand">
+        <div class="brand-icon">📚</div>
+        <h2>Smart Study Planner</h2>
+        <p>Study smarter, not harder</p>
+    </div>
+
+    <div class="nav-title">Main Menu</div>
+
+    <a href="{{ url_for('dashboard') }}" class="nav-item">
+        <span>🏠</span> Dashboard
+    </a>
+
+    <a href="{{ url_for('study_plans_page') }}" class="nav-item">
+        <span>📚</span> Add / Study Plans
+    </a>
+
+    <a href="{{ url_for('progress_page') }}" class="nav-item">
+        <span>📈</span> My Progress
+    </a>
+
+    <a href="{{ url_for('performance_prediction_page') }}" class="nav-item">
+        <span>🔮</span> Performance Prediction
+    </a>
+
+    <div class="nav-title">Account</div>
+
+    <a href="{{ url_for('profile_page') }}" class="nav-item">
+        <span>👤</span> Profile
+    </a>
+
+    <a href="{{ url_for('settings_page') }}" class="nav-item">
+        <span>⚙️</span> Settings
+    </a>
+
+    <a href="{{ url_for('about_page') }}" class="nav-item">
+        <span>ℹ️</span> About Us
+    </a>
+
+    <a href="{{ url_for('contact_page') }}" class="nav-item active">
+        <span>📩</span> Contact Us
+    </a>
+
+    <a href="{{ url_for('logout') }}" class="logout-btn">
+        <span>🚪</span> Logout
+    </a>
+
+</aside>
+
+
+<main class="main">
+
+    <div class="topbar">
+        <div class="welcome">
+            <h1>📩 Contact Us</h1>
+            <p>Need help or want to get in touch?</p>
+        </div>
+
+        <div class="user-badge">
+            👋 {{ username if username else "Student" }}
+        </div>
+    </div>
+
+
+    <div class="grid">
+
+        <section class="card">
+
+            <h2>💬 Get in Touch</h2>
+            <p>
+                Have a question, suggestion or need help with the
+                Smart Study Planner? You can contact us using the details below.
+            </p>
+
+
+            <div class="contact-item">
+
+                <div class="contact-icon">📧</div>
+
+                <div>
+                    <h3>Email</h3>
+                    <a href="mailto:muskamishra43768@gmail.com">
+                        muskamishra43768@gmail.com
+                    </a>
+                </div>
+
+            </div>
+
+
+            <div class="contact-item">
+
+                <div class="contact-icon">📞</div>
+
+                <div>
+                    <h3>Phone</h3>
+                    <a href="tel:8858427263">
+                        8858427263
+                    </a>
+                </div>
+
+            </div>
+
+
+            <div class="contact-item">
+
+                <div class="contact-icon">📸</div>
+
+                <div>
+                    <h3>Instagram</h3>
+                    <a href="https://www.instagram.com/_smileymess_/"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        @_smileymess_
+                    </a>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="card">
+
+            <h2>🤝 We Value Your Feedback</h2>
+
+            <p>
+                Your feedback can help improve the planner.
+                You can share ideas about study planning, progress tracking,
+                dashboard features and future improvements.
+            </p>
+
+            <div class="social-box">
+
+                <h3>📱 Connect with us</h3>
+
+                <a class="instagram"
+                   href="https://www.instagram.com/smiley_mess/"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    📸 Instagram · @_smileymess_
+                </a>
+
+            </div>
+
+            <div style="margin-top:18px;background:#f8fafc;border-radius:12px;padding:16px;color:#6b7280;font-size:13px;line-height:1.6">
+                💡 Keep your study plans updated regularly so your
+                dashboard and progress remain useful.
+            </div>
+
+        </section>
+
+    </div>
+
+
+    <div class="footer">
+        © 2026 Smart Study Planner • Happy studying 🚀
+    </div>
+
+</main>
+
+</div>
+
+</body>
+</html>
